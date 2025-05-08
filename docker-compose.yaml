@@ -1,0 +1,32 @@
+services:
+  backend-service:
+    container_name: "PlataYa-backend"
+    image: ghcr.io/plataya/backend:latest
+
+    environment:
+      POSTGRES_USER: "${BACKEND_POSTGRES_USER}"
+      POSTGRES_PASSWORD: "${BACKEND_POSTGRES_PASSWORD}"
+      POSTGRES_DB: "${BACKEND_POSTGRES_DB}"
+      POSTGRES_PORT: "${BACKEND_POSTGRES_PORT}"
+      POSTGRES_HOST: "${BACKEND_POSTGRES_HOST}"
+
+    depends_on:
+      - backend-db
+
+
+  backend-db:
+    container_name: "${BACKEND_POSTGRES_HOST}"
+    image: postgres:latest
+
+    environment:
+      POSTGRES_USER: "${BACKEND_POSTGRES_USER}"
+      POSTGRES_PASSWORD: "${BACKEND_POSTGRES_PASSWORD}"
+      POSTGRES_DB: "${BACKEND_POSTGRES_DB}"
+
+    ports:
+      - "5432:${POSTGRES_PORT}"
+    volumes:
+      - backend_postgres_data:/var/lib/postgresql/data
+
+volumes:
+  backend_postgres_data:
