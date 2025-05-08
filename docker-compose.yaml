@@ -24,7 +24,7 @@ services:
       POSTGRES_DB: "${BACKEND_POSTGRES_DB}"
 
     ports:
-      - "5432:${POSTGRES_PORT}"
+      - "5432:${BACKEND_POSTGRES_PORT}"
     volumes:
       - backend_postgres_data:/var/lib/postgresql/data
 
